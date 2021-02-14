@@ -1,4 +1,4 @@
-# an AWS hello-world in terraform
+# An AWS hello-world in terraform
 
 
 ## Requirements
