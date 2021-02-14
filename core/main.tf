@@ -22,3 +22,11 @@ variable deployrole {
     default =  ""
 }
 
+
+data "aws_iam_role" "deployer" {
+  name = "deployer"
+}
+
+output "deployer_role" {
+    value = data.aws_iam_role.deployer
+}
