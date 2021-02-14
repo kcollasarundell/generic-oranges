@@ -112,3 +112,4 @@ Ultimately the goal of this style of system is to run with a very minimal OS. Un
 
 [terraform provider documentation for aws](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
 [Terratest quickstart](https://terratest.gruntwork.io/docs/getting-started/quick-start/#example-2-terraform-and-aws)
+[Terraform github actions documentation and examples](https://github.com/hashicorp/setup-terraform)
