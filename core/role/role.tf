@@ -23,5 +23,5 @@ resource "aws_iam_role" "deploy-core" {
     name = "deploy-core"
     path = "/kca/core/"
     description = "Core Deploy role"
-    assume_role_policy = data.aws_iam_policy_document.deploy_assume
+    assume_role_policy = data.aws_iam_policy_document.deploy_assume.json
 }
