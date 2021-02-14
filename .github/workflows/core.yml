@@ -63,14 +63,6 @@ jobs:
             repo: context.repo.repo,
             body: output
           })
-
-For the problem like "command '...' not found", please try to
-
-    wait for a few seconds after you open a Markdown file for the first time
-    doesn't work? -> update vscode
-    doesn't work? -> reinstall this extension
-    still doesn't work? dizzy_face -> please open the developer tools to see whether there is any error message, and then paste it below. (Menu Bar -> Help -> Toggle Developer Tools)
-
     - name: Terraform Plan Status
       if: steps.plan.outcome == 'failure'
       run: exit 1
