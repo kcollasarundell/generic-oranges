@@ -1,7 +1,7 @@
 # An AWS hello-world in terraform
 
 
-## Requirements
+## Project Requirements
 
 - Apply AWS best practices in solution architecture and security.
 - Use an official, public, Debian, Ubuntu or Amazon Linux 2 AMI for any EC2 resources.
@@ -9,6 +9,14 @@
 - Scale capacity to meed demand.
 - Manage unhealthy instances.
 - Optional deploy role creation
+
+
+
+# Runtime requirements
+
+-  1 s3 bucket for remote state used when calling terraform init
+-  1 role that can create resources with token in env vars
+
 
 # Design Choice
 
