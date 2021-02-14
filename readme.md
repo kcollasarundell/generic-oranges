@@ -27,7 +27,6 @@ The initial VPC, Role, Network and route53 zone will be done in one terraform mo
 
 - Account creation is considered out of scope for the base terraform creation.
 - A single account will be used and credentials shared with different roles for Admin and scoped down
-- 
 
 ## CI process
 
