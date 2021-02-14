@@ -5,7 +5,7 @@ resource "aws_iam_policy" "deployer" {
   policy = data.aws_iam_policy_document.deployer.json
 }
 
-data "aws_iam_policy_document" "deployer" {
+data "aws_iam_policy_document" "deploy_assume" {
   statement {
     sid    = ""
     effect = "Allow"
@@ -23,5 +23,5 @@ resource "aws_iam_role" "deploy-core" {
     name = "deploy-core"
     path = "/kca/core/"
     description = "Core Deploy role"
-    assume_role_policy = ""
+    assume_role_policy = data.aws_iam_policy_document.deploy_assume
 }
