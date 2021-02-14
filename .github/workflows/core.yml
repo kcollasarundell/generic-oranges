@@ -5,6 +5,7 @@ on:
     - main
     paths:
     - "core/**"
+    - ".github/workflows/core.yml"
   pull_request:
 
 name: Deploy Core configuration
