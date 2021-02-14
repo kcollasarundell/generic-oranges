@@ -27,4 +27,4 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-    - run: terraform init -backend-config="bucket=${{secrets.BUCKETNAME}}"
+    - run: terraform init -backend-config="bucket=${{secrets.BUCKET_NAME}}"
