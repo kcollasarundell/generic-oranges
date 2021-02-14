@@ -17,9 +17,9 @@ provider "aws" {
 }
 
 
-variable deployerrole {
-    type = string
-    default =  "deployer"
+variable "deployerrole" {
+  type    = string
+  default = "deployer"
 }
 
 
@@ -29,5 +29,5 @@ data "aws_iam_role" "deployer" {
 
 
 output "deployer_role" {
-    value = data.aws_iam_role.deployer
+  value = data.aws_iam_role.deployer
 }
