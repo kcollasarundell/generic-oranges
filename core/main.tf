@@ -16,18 +16,9 @@ provider "aws" {
   region = "ap-southeast-2"
 }
 
-
-variable "deployerrole" {
-  type    = string
-  default = "deployer"
+module "role" {
+  source = "./role"
 }
 
 
-data "aws_iam_role" "deployer" {
-  name = var.deployerrole
-}
 
-
-output "deployer_role" {
-  value = data.aws_iam_role.deployer
-}

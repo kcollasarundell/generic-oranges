@@ -1,0 +1,178 @@
+data "aws_caller_identity" "current" {}
+
+data "aws_iam_policy_document" "deployer" {
+  statement {
+    sid    = ""
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:subnet/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:vpc/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:natgateway/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:route-table/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:elastic-ip/*",
+      "arn:aws:s3:*:${data.aws_caller_identity.current.account_id}:accesspoint/*",
+      "arn:aws:s3:::*",
+    ]
+
+    actions = [
+      "s3:PutAnalyticsConfiguration",
+      "s3:DeleteAccessPoint",
+      "s3:CreateBucket",
+      "ec2:AttachInternetGateway",
+      "s3:GetBucketObjectLockConfiguration",
+      "s3:DeleteBucketWebsite",
+      "s3:GetIntelligentTieringConfiguration",
+      "s3:PutLifecycleConfiguration",
+      "s3:GetBucketPolicyStatus",
+      "s3:GetBucketWebsite",
+      "ec2:CreateTags",
+      "ec2:CreateRouteTable",
+      "s3:GetBucketNotification",
+      "s3:PutBucketCORS",
+      "s3:GetReplicationConfiguration",
+      "s3:PutBucketNotification",
+      "s3:PutBucketLogging",
+      "s3:GetAnalyticsConfiguration",
+      "s3:PutBucketObjectLockConfiguration",
+      "ec2:CreateSubnet",
+      "s3:CreateAccessPoint",
+      "s3:GetLifecycleConfiguration",
+      "s3:GetInventoryConfiguration",
+      "s3:GetBucketTagging",
+      "ec2:DeleteTags",
+      "s3:PutAccelerateConfiguration",
+      "ec2:CreateNatGateway",
+      "s3:GetBucketLogging",
+      "s3:ListBucketVersions",
+      "ec2:CreateVpc",
+      "s3:ListBucket",
+      "s3:GetAccelerateConfiguration",
+      "s3:GetBucketPolicy",
+      "s3:PutEncryptionConfiguration",
+      "s3:GetEncryptionConfiguration",
+      "s3:PutBucketTagging",
+      "s3:GetBucketRequestPayment",
+      "s3:DeleteBucketOwnershipControls",
+      "s3:GetAccessPointPolicyStatus",
+      "s3:GetMetricsConfiguration",
+      "s3:GetBucketOwnershipControls",
+      "s3:DeleteBucket",
+      "s3:PutBucketVersioning",
+      "s3:GetBucketPublicAccessBlock",
+      "s3:ListBucketMultipartUploads",
+      "s3:PutIntelligentTieringConfiguration",
+      "s3:PutMetricsConfiguration",
+      "s3:PutBucketOwnershipControls",
+      "s3:GetBucketVersioning",
+      "s3:GetBucketAcl",
+      "s3:PutInventoryConfiguration",
+      "s3:PutBucketWebsite",
+      "s3:PutBucketRequestPayment",
+      "s3:GetBucketCORS",
+      "s3:GetBucketLocation",
+      "s3:GetAccessPointPolicy",
+    ]
+  }
+
+  statement {
+    sid    = "VisualEditor1"
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:s3:::*/*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/*",
+      "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:vpc/*",
+      "arn:aws:route53:::hostedzone/*",
+      "arn:aws:route53:::healthcheck/*",
+    ]
+
+    actions = [
+      "iam:UpdateAssumeRolePolicy",
+      "iam:GetPolicyVersion",
+      "s3:GetObjectVersionTagging",
+      "route53:GetHostedZone",
+      "iam:CreateRole",
+      "iam:AttachRolePolicy",
+      "iam:PutRolePolicy",
+      "s3:ReplicateObject",
+      "s3:GetObjectAcl",
+      "iam:DetachRolePolicy",
+      "s3:GetObjectVersionAcl",
+      "s3:PutObjectTagging",
+      "route53:UpdateHostedZoneComment",
+      "s3:DeleteObject",
+      "iam:ListRolePolicies",
+      "s3:DeleteObjectTagging",
+      "iam:GetRole",
+      "s3:GetObjectRetention",
+      "route53:CreateHostedZone",
+      "iam:GetPolicy",
+      "iam:GetAccessKeyLastUsed",
+      "iam:DeleteRole",
+      "iam:UpdateRoleDescription",
+      "s3:PutObjectLegalHold",
+      "s3:DeleteObjectVersionTagging",
+      "s3:GetObjectLegalHold",
+      "iam:TagPolicy",
+      "s3:ListMultipartUploadParts",
+      "s3:PutObject",
+      "s3:GetObject",
+      "route53:ChangeTagsForResource",
+      "s3:GetObjectVersionForReplication",
+      "iam:GetRolePolicy",
+      "s3:DeleteObjectVersion",
+      "iam:PutRolePermissionsBoundary",
+      "iam:TagRole",
+      "s3:ReplicateTags",
+      "s3:RestoreObject",
+      "iam:DeletePolicy",
+      "iam:DeleteRolePermissionsBoundary",
+      "s3:GetObjectVersionTorrent",
+      "iam:PassRole",
+      "route53:ListHostedZonesByVPC",
+      "s3:AbortMultipartUpload",
+      "iam:DeleteRolePolicy",
+      "s3:GetObjectTagging",
+      "route53:DeleteHostedZone",
+      "iam:ListPolicyTags",
+      "iam:CreatePolicyVersion",
+      "iam:PutUserPermissionsBoundary",
+      "s3:PutObjectVersionTagging",
+      "iam:CreatePolicy",
+      "s3:GetObjectTorrent",
+      "iam:ListPolicyVersions",
+      "s3:PutObjectRetention",
+      "iam:UpdateRole",
+      "iam:GetUser",
+      "s3:ReplicateDelete",
+      "s3:GetObjectVersion",
+      "iam:DeletePolicyVersion",
+    ]
+  }
+
+  statement {
+    sid       = "VisualEditor2"
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "s3:GetAccessPoint",
+      "s3:ListAccessPoints",
+      "ec2:DescribeTags",
+      "route53:ListHostedZones",
+      "iam:ListRoles",
+      "ec2:DescribeNatGateways",
+      "ec2:DescribeVpcAttribute",
+      "route53:ListHostedZonesByName",
+      "route53:GetAccountLimit",
+      "s3:GetAccountPublicAccessBlock",
+      "s3:ListAllMyBuckets",
+      "ec2:DescribeVpcs",
+      "ec2:DescribeSubnets",
+      "ec2:DescribeRouteTables",
+    ]
+  }
+}
