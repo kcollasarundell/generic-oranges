@@ -8,6 +8,7 @@
 - Serve a basic "Hello, World" webpage.
 - Scale capacity to meed demand.
 - Manage unhealthy instances.
+- Optional deploy role creation
 
 # Design Choice
 
@@ -25,11 +26,16 @@ The initial VPC, Role, Network and route53 zone will be done in one terraform mo
 ## Layout: AWS
 
 - Account creation is considered out of scope for the base terraform creation.
-- User credentials 
+- A single account will be used and credentials shared with different roles for Admin and scoped down
+- 
 
 ## CI process
 
-Development should occur on a branch and be re-based prior to merge. github will block non ff merges. Terraform configuration should include tests. Packer tests are currently out of scope.
+Development should occur on a branch and be re-based prior to merge.
+
+- Github will block non ff merges.
+- Terraform configuration should include tests.
+- Packer tests are currently out of scope.
 
 
 ## CD process
