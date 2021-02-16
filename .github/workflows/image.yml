@@ -37,7 +37,7 @@ jobs:
   test:
     strategy:
       matrix:
-        go-version: [1.15.x,'1.16.x']
+        go-version: [1.15.x]
         platform: [ubuntu-latest]
     runs-on: ${{ matrix.platform }}
     steps:
@@ -60,7 +60,7 @@ jobs:
       uses: actions/setup-go@v2
       with:
         stable: 'false'
-        go-version: '1.16.x'
+        go-version: 1.15.x
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Calc coverage
@@ -84,7 +84,7 @@ jobs:
     - uses: actions/setup-go@v2
       with:
         stable: 'false'
-        go-version: '1.16.x'
+        go-version: 1.15.x
     - run: make test
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
