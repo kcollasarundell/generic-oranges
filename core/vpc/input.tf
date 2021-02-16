@@ -1,3 +1,0 @@
-variable "role" {
-  type = string
-}
