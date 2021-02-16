@@ -41,6 +41,7 @@ data "aws_iam_policy_document" "tfstate" {
       "iam:GetRole",
       "iam:ListAttachedRolePolicies",
       "iam:GetPolicyVersion",
+      "iam:ListAttachedUserPolicies",
     ]
   }
 }

@@ -9,7 +9,7 @@ resource "aws_route53_zone" "primary" {
 }
 
 output "name_servers" {
-    value = aws_route53_zone.primary.name_servers
+  value = aws_route53_zone.primary.name_servers
 }
 
 # This upstream module is maintained by a aws community hero and the automates a large amount of the details involved in a vpc
