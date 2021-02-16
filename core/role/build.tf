@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "builder" {
       "arn:aws:ec2:region:account:subnet/*",
     ]
     condition {
-      test     = "StringEqual"
+      test     = "StringEquals"
       variable = "ec2:ResourceTag/Environment"
 
       values = [
@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "builder" {
       "*",
     ]
     condition {
-      test     = "StringEqual"
+      test     = "StringEquals"
       variable = "ec2:ResourceTag/Environment"
 
       values = [
