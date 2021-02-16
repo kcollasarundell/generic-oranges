@@ -8,4 +8,4 @@ run:
 	go run ./app
 
 
-all: hello build
+all: test build
