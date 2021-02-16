@@ -1,8 +1,3 @@
-provider "aws" {
-  region = "ap-southeast-2"
-}
-
-
 # domain configuration
 resource "aws_route53_zone" "primary" {
   name = "generic-oranges.dev"
