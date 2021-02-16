@@ -2,10 +2,10 @@ test:
 	go test ./app/
 
 build:
-	GOOS=linux GOARCH=arm go build ./app/ -o bin/generic-oranges
+	GOOS=linux GOARCH=arm go build  -o bin/generic-oranges ./app
 
 run:
-	go run ./git puapp/
+	go run ./app
 
 
 all: hello build
