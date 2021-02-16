@@ -6,7 +6,13 @@
         "source_ami": "ami-01bdd32fb6f4e4f51",
         "instance_type": "t4g.nano",
         "ssh_username": "ec2-user",
-        "ami_name": "generic-images {{timestamp}}"
+        "ami_name": "generic-images {{timestamp}}",
+        "subnet_filter": {
+          "filters": {
+            "tag:build": "true"
+          },
+          "random": true
+        }
       }
     ],
     "provisioners": [
