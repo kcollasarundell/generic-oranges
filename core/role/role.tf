@@ -59,6 +59,7 @@ data "aws_iam_policy_document" "assumption" {
     effect = "Allow"
     actions = [
       "sts:AssumeRole",
+      "sts:TagSession",
     ]
     principals {
       type = "AWS"
