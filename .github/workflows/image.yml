@@ -103,5 +103,5 @@ jobs:
       with:
         name: arm-build
         path: |
-          bin/
+          ./compute/bin/
   
