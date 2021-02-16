@@ -1,12 +1,4 @@
-resource "aws_iam_role" "app_deploy" {
-  name               = "app_deploy"
-  path               = "/kca/app/"
-  description        = "App Deploy role"
-  assume_role_policy = data.aws_iam_policy_document.assumption.json
-}
-output "deploy_role" {
-  value = aws_iam_role.app_deploy.arn
-}
+
 resource "aws_iam_policy" "view_policy" {
   name        = "view-only-policy"
   path        = "/kca/"
