@@ -117,4 +117,4 @@ jobs:
       with:
         name: arm-build
         path: compute/image/tmp
-    - run: find compute/image/tmp
+    - run: find .
