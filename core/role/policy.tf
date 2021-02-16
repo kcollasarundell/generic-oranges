@@ -151,7 +151,8 @@ data "aws_iam_policy_document" "deploy_vpc" {
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:vpc/*",
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:natgateway/*",
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:route-table/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:elastic-ip/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:elastic-ip/*", 
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:security-group/*",
     ]
 
     actions = [
@@ -177,6 +178,18 @@ data "aws_iam_policy_document" "deploy_vpc" {
       "ec2:DeleteTags",
       "ec2:DescribeVpcClassicLink",
       "ec2:DescribeAccountAttributes",
+
+
+      "ec2:DescribeAddresses",
+      "ec2:AllocateAddress",
+      "ec2:DescribeInstances",
+      "ec2:AssociateAddress",
+      "ec2:AuthorizeSecurityGroupIngress",
+      "ec2:RevokeSecurityGroupIngress",
+      "ec2:AuthorizeSecurityGroupEgress",
+      "ec2:RevokeSecurityGroupEgress",
+      "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
+      "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
     ]
   }
 
