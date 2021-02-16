@@ -10,13 +10,13 @@ output "deploy_role" {
 
 
 resource "aws_iam_policy" "core_policy" {
-  name        = "deploy_role"
+  name        = "core-deployment-policy"
   path        = "/kca/"
   description = "Core deployer policy to manage and restrict this deployer"
   policy      = data.aws_iam_policy_document.deploy.json
 }
 resource "aws_iam_policy" "state_policy" {
-  name        = "tf-state"
+  name        = "tf-state-store"
   path        = "/kca/core/"
   description = "IAM policy for state access"
   policy      = data.aws_iam_policy_document.tfstate.json

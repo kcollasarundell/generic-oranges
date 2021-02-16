@@ -29,6 +29,19 @@ data "aws_iam_policy_document" "tfstate" {
       "s3:PutObject",
     ]
   }
+  statement {
+    sid       = ""
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "iam:ListAttachedRolePolicies",
+      "iam:GetPolicy",
+      "iam:GetUser",
+      "iam:GetRole",
+      "iam:ListAttachedRolePolicies",
+    ]
+  }
 }
 
 

@@ -26,3 +26,7 @@ module "role" {
 module "compute" {
   source = "./vpc"
 }
+
+output "name_servers" {
+  value = module.compute.name_servers
+}
