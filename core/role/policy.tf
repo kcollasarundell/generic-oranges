@@ -135,6 +135,7 @@ data "aws_iam_policy_document" "viewer" {
       "ec2:DescribeVpcs",
       "ec2:DescribeVpnConnections",
       "ec2:DescribeVpnGateways",
+      "ec2:DescribePublicIpv4Pools",
       "ec2:GetManagedPrefixListAssociations",
       "ec2:GetManagedPrefixListEntries"
     ]
@@ -167,7 +168,6 @@ data "aws_iam_policy_document" "deploy_vpc" {
       "ec2:*Subnet*",
       "ec2:*Tags*",
       "ec2:*Vpc*",
-
 
       "ec2:*Addresses*",
       "ec2:*Address",
