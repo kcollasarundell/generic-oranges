@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "builder" {
 
     actions = [
       "ec2:RunInstances",
-      "iam:PassRole", 
+      "iam:PassRole",
       "iam:GetInstanceProfile",
     ]
   }
