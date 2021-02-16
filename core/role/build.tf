@@ -14,6 +14,10 @@ data "aws_vpcs" "dev" {
   }
 }
 
+data "aws_vpc" "dev_vpcs" {
+  for_each = toset(data.aws_vpcs.dev.ids)
+  id = each.key
+}
 
 resource "aws_iam_role_policy_attachment" "builder" {
 
@@ -34,13 +38,12 @@ data "aws_iam_policy_document" "builder" {
     effect = "Allow"
 
     resources = [
-
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:subnet/*",
     ]
     condition {
       test     = "StringEquals"
       variable = "ec2:Vpc"
-      values =   data.aws_vpcs.dev.ids
+      values =   data.aws_vpc.dev_vpcs[*].arn
     }
 
     actions = [
