@@ -82,7 +82,7 @@ jobs:
     - name: Coveralls
       uses: coverallsapp/github-action@v1.1.2
       with:
-          working-directory: ./compute/app
+          base-path: ./compute/app
           github-token: ${{ secrets.github_token }}
           path-to-lcov: coverage.lcov
   build:
