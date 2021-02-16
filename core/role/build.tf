@@ -8,6 +8,19 @@ output "deploy_role" {
   value = aws_iam_role.app_deploy.arn
 }
 
+resource "aws_iam_role_policy_attachment" "builder" {
+
+  user       = aws_iam_role.builder
+  policy_arn = aws_iam_policy.builder.arn
+}
+
+
+resource "aws_iam_policy" "builder" {
+  name        = "builder"
+  path        = "/kca/dev/"
+  description = "Policy to allow packer image builds"
+  policy      = data.aws_iam_policy_document.builder.json
+}
 data "aws_iam_policy_document" "builder" {
   statement {
     sid    = ""
