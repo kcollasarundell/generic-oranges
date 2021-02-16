@@ -1,0 +1,34 @@
+---
+
+name: application-build
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - "compute/**"
+    - ".github/workflows/image.yml"
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build App
+    defaults:
+      run:
+        working-directory: ./app
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
+      with:
+        stable: 'false'
+        go-version: '^1.16'
+    - run: make test
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: arm-build
+        path: |
+          bin/
+  
