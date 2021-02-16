@@ -29,6 +29,9 @@ data "aws_iam_policy_document" "tfstate" {
       "s3:PutObject",
     ]
   }
+}
+
+data "aws_iam_policy_document" "iam_control_core" {
   statement {
     sid       = ""
     effect    = "Allow"
@@ -57,9 +60,6 @@ data "aws_iam_policy_document" "tfstate" {
       "iam:UpdateRole",
       "iam:UpdateAssumeRolePolicy",
 
-      # Who am i?
-      "sts:GetCallerIdentity",
-
       # Policy Attachment
       "iam:CreatePolicy",
       "iam:DeletePolicy",
@@ -73,44 +73,16 @@ data "aws_iam_policy_document" "tfstate" {
   }
 }
 
+data "aws_iam_policy_document" "viewer" {
 
-
-data "aws_iam_policy_document" "deploy" {
   statement {
     sid    = ""
     effect = "Allow"
 
-    resources = [
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:subnet/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:vpc/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:natgateway/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:route-table/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:elastic-ip/*",
-    ]
-
+    resources = ["*"]
     actions = [
-      #
-      "ec2:CreateVpc",
-      "ec2:CreateSubnet",
-      "ec2:DescribeAvailabilityZones",
-
-      "ec2:CreateRouteTable",
-      "ec2:CreateRoute",
-      "ec2:CreateInternetGateway",
-
-      "ec2:AttachInternetGateway",
-      "ec2:AssociateRouteTable",
-      "ec2:ModifyVpcAttribute",
-
-      "ec2:AttachInternetGateway",
-      "ec2:CreateNatGateway",
-      "ec2:CreateRouteTable",
-      "ec2:CreateSubnet",
-      "ec2:CreateTags",
-      "ec2:CreateVpc",
-      "ec2:DeleteTags",
-      "ec2:DescribeVpcClassicLink",
-      "ec2:DescribeAccountAttributes",
+      # Who am i?
+      "sts:GetCallerIdentity",
     ]
   }
 
@@ -167,6 +139,47 @@ data "aws_iam_policy_document" "deploy" {
       "ec2:GetManagedPrefixListEntries"
     ]
   }
+}
+
+data "aws_iam_policy_document" "deploy_vpc" {
+  statement {
+    sid    = ""
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:subnet/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:vpc/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:natgateway/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:route-table/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:elastic-ip/*",
+    ]
+
+    actions = [
+      #
+      "ec2:CreateVpc",
+      "ec2:CreateSubnet",
+      "ec2:DescribeAvailabilityZones",
+
+      "ec2:CreateRouteTable",
+      "ec2:CreateRoute",
+      "ec2:CreateInternetGateway",
+
+      "ec2:AttachInternetGateway",
+      "ec2:AssociateRouteTable",
+      "ec2:ModifyVpcAttribute",
+
+      "ec2:AttachInternetGateway",
+      "ec2:CreateNatGateway",
+      "ec2:CreateRouteTable",
+      "ec2:CreateSubnet",
+      "ec2:CreateTags",
+      "ec2:CreateVpc",
+      "ec2:DeleteTags",
+      "ec2:DescribeVpcClassicLink",
+      "ec2:DescribeAccountAttributes",
+    ]
+  }
+
 
   statement {
     sid    = ""
