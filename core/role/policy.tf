@@ -57,6 +57,8 @@ data "aws_iam_policy_document" "tfstate" {
       "iam:UpdateRole",
       "iam:UpdateAssumeRolePolicy",
 
+      # Who am i?
+      "sts:GetCallerIdentity",
 
       # Policy Attachment
       "iam:CreatePolicy",
