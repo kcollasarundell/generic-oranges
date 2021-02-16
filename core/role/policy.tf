@@ -157,39 +157,22 @@ data "aws_iam_policy_document" "deploy_vpc" {
 
     actions = [
       #
-      "ec2:CreateVpc",
-      "ec2:CreateSubnet",
       "ec2:DescribeAvailabilityZones",
 
-      "ec2:CreateRouteTable",
-      "ec2:CreateRoute",
-      "ec2:CreateInternetGateway",
+      "ec2:*Route",
 
-      "ec2:AttachInternetGateway",
-      "ec2:AssociateRouteTable",
-      "ec2:ModifyVpcAttribute",
-
-      "ec2:AttachInternetGateway",
-      "ec2:CreateNatGateway",
-      "ec2:CreateRouteTable",
-      "ec2:CreateSubnet",
-      "ec2:CreateTags",
-      "ec2:CreateVpc",
-      "ec2:DeleteTags",
-      "ec2:DescribeVpcClassicLink",
-      "ec2:DescribeAccountAttributes",
+      "ec2:*InternetGateway*",
+      "ec2:*NatGateway*",
+      "ec2:*RouteTable*",
+      "ec2:*Subnet*",
+      "ec2:*Tags*",
+      "ec2:*Vpc*",
 
 
-      "ec2:DescribeAddresses",
-      "ec2:AllocateAddress",
-      "ec2:DescribeInstances",
-      "ec2:AssociateAddress",
-      "ec2:AuthorizeSecurityGroupIngress",
-      "ec2:RevokeSecurityGroupIngress",
-      "ec2:AuthorizeSecurityGroupEgress",
-      "ec2:RevokeSecurityGroupEgress",
-      "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
-      "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
+      "ec2:*Addresses*",
+      "ec2:*Address",
+      "ec2:*Instances*",
+      "ec2:*SecurityGroup*",
     ]
   }
 
