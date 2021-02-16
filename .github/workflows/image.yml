@@ -104,4 +104,16 @@ jobs:
         name: arm-build
         path: |
           ./compute/bin/
-  
+  ami:
+    runs-on: ubuntu-latest
+    needs: build
+    name: Build App
+    defaults:
+      run:
+        working-directory: compute/image
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/download-artifact@v2
+      with:
+        name: my-artifact
+        path: compute/image/tmp
