@@ -25,6 +25,7 @@ module "role" {
 
 module "compute" {
   source = "./vpc"
+  depends_on = [module.role]
 }
 
 output "name_servers" {
