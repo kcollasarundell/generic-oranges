@@ -34,10 +34,7 @@ data "aws_iam_policy_document" "builder" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:instance/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:volume/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:network-interface/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:security-group/*",
+
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:subnet/*",
     ]
     condition {
@@ -48,8 +45,6 @@ data "aws_iam_policy_document" "builder" {
 
     actions = [
       "ec2:RunInstances",
-      "iam:PassRole",
-      "iam:GetInstanceProfile",
     ]
   }
 
@@ -62,7 +57,8 @@ data "aws_iam_policy_document" "builder" {
     ]
 
     actions = [
-      # Policy for terraform state storage on s3 backend
+      "iam:PassRole",
+      "iam:GetInstanceProfile",
       "ec2:AttachVolume",
       "ec2:AuthorizeSecurityGroupIngress",
       "ec2:CopyImage",
@@ -98,10 +94,6 @@ data "aws_iam_policy_document" "builder" {
     ]
   }
 }
-
-
-
-
 
 resource "aws_iam_role" "builder" {
   name               = "builder"
