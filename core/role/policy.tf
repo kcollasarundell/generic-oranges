@@ -40,6 +40,7 @@ data "aws_iam_policy_document" "tfstate" {
       "iam:GetUser",
       "iam:GetRole",
       "iam:ListAttachedRolePolicies",
+      "iam:GetPolicyVersion",
     ]
   }
 }
@@ -57,7 +58,6 @@ data "aws_iam_policy_document" "deploy" {
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:natgateway/*",
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:route-table/*",
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:elastic-ip/*",
-      "arn:aws:s3:*:${data.aws_caller_identity.current.account_id}:accesspoint/*",
     ]
 
     actions = [
@@ -76,9 +76,7 @@ data "aws_iam_policy_document" "deploy" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:s3:::*/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:vpc/*",
-      "arn:aws:route53:::hostedzone/*",
+      "arn:aws:route53:::*/*",
       "arn:aws:route53:::healthcheck/*",
     ]
 
@@ -86,9 +84,13 @@ data "aws_iam_policy_document" "deploy" {
       "route53:ChangeTagsForResource",
       "route53:CreateHostedZone",
       "route53:DeleteHostedZone",
+      "route53:GetAccountLimit",
       "route53:GetHostedZone",
+      "route53:ListHostedZones",
+      "route53:ListHostedZonesByName",
       "route53:ListHostedZonesByVPC",
       "route53:UpdateHostedZoneComment",
+      "route53:ListTagsForResource"
     ]
   }
 
@@ -104,9 +106,6 @@ data "aws_iam_policy_document" "deploy" {
       "ec2:DescribeTags",
       "ec2:DescribeVpcAttribute",
       "ec2:DescribeVpcs",
-      "route53:GetAccountLimit",
-      "route53:ListHostedZones",
-      "route53:ListHostedZonesByName",
     ]
   }
 }
