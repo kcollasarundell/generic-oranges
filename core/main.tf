@@ -24,6 +24,7 @@ module "role" {
 
 
 module "compute" {
-  source = "./vpc"
-  role   = module.role.deploy_role
+  source     = "./vpc"
+  role       = module.role.deploy_role
+  depends_on = [module.role]
 }
