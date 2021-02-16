@@ -2,11 +2,6 @@
     "builders": [
       {
         "type": "amazon-ebs",
-        "assume_role": {
-            "role_arn"    :  "arn:aws:iam::ACCOUNT_ID:role/ROLE_NAME",
-            "session_name":  "SESSION_NAME",
-            "external_id" :  "EXTERNAL_ID"
-        },
         "region": "ap-southeast-2",
         "source_ami": "ami-01bdd32fb6f4e4f51",
         "instance_type": "t4g.nano",
