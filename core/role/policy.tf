@@ -35,13 +35,38 @@ data "aws_iam_policy_document" "tfstate" {
     resources = ["*"]
 
     actions = [
-      "iam:ListAttachedRolePolicies",
-      "iam:GetPolicy",
+     
+      
+      # User perms
+      "iam:AttachUserPolicy",
+      "iam:DetachUserPolicy",
       "iam:GetUser",
+      "iam:ListAttachedUserPolicies",
+      "iam:ListUsers",
+
+      #Roles
+      "iam:AttachRolePolicy",
+      "iam:CreateRole",
+      "iam:DeleteRole",
+      "iam:DetachRolePolicy",
       "iam:GetRole",
       "iam:ListAttachedRolePolicies",
+      "iam:ListRolePolicies",
+      "iam:ListRoles",
+      "iam:PutRolePolicy",
+      "iam:UpdateRole",
+      "iam:UpdateAssumeRolePolicy",
+
+
+      # Policy Attachment
+      "iam:CreatePolicy",
+      "iam:DeletePolicy",
+      "iam:GetPolicy",
       "iam:GetPolicyVersion",
-      "iam:ListAttachedUserPolicies",
+      "iam:ListEntitiesForPolicy",
+      "iam:ListPolicyVersions",
+      "iam:UpdatePolicy",
+
     ]
   }
 }
@@ -69,6 +94,8 @@ data "aws_iam_policy_document" "deploy" {
       "ec2:CreateTags",
       "ec2:CreateVpc",
       "ec2:DeleteTags",
+      "ec2:DescribeVpcClassicLink",
+      "ec2:DescribeAccountAttributes",
     ]
   }
 
