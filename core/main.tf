@@ -24,7 +24,7 @@ module "role" {
 
 
 module "compute" {
-  source = "./vpc"
+  source     = "./vpc"
   depends_on = [module.role]
 }
 
