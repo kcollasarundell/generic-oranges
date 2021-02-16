@@ -83,7 +83,7 @@ jobs:
       uses: coverallsapp/github-action@v1.1.2
       with:
           github-token: ${{ secrets.github_token }}
-          path-to-lcov: ./compute/appcoverage.lcov
+          path-to-lcov: ./compute/app/coverage.lcov
   build:
     runs-on: ubuntu-latest
     needs: [coverage, test, lint]
