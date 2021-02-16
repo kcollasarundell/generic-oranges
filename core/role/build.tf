@@ -27,12 +27,12 @@ data "aws_iam_policy_document" "builder" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:ec2:region:account:instance/*",
-      "arn:aws:ec2:region:account:volume/*",
-      "arn:aws:ec2:region:account:network-interface/*",
-      "arn:aws:ec2:region:account:key-pair/*",
-      "arn:aws:ec2:region:account:security-group/*",
-      "arn:aws:ec2:region:account:subnet/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:instance/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:volume/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:network-interface/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:key-pair/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:security-group/*",
+      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:subnet/*",
     ]
     condition {
       test     = "StringEquals"
@@ -57,15 +57,6 @@ data "aws_iam_policy_document" "builder" {
     resources = [
       "*",
     ]
-    condition {
-      test     = "StringEquals"
-      variable = "ec2:ResourceTag/Environment"
-
-      values = [
-        "dev"
-      ]
-    }
-
 
     actions = [
       # Policy for terraform state storage on s3 backend
@@ -99,8 +90,6 @@ data "aws_iam_policy_document" "builder" {
       "ec2:ModifyInstanceAttribute",
       "ec2:ModifySnapshotAttribute",
       "ec2:RegisterImage",
-      "ec2:RunInstances",
-      "ec2:StopInstances",
       "ec2:TerminateInstances",
       "ec2:DescribeVpcs",
     ]
