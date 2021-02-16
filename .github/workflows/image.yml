@@ -82,9 +82,8 @@ jobs:
     - name: Coveralls
       uses: coverallsapp/github-action@v1.1.2
       with:
-          base-path: ./compute/app
           github-token: ${{ secrets.github_token }}
-          path-to-lcov: coverage.lcov
+          path-to-lcov: ./compute/appcoverage.lcov
   build:
     runs-on: ubuntu-latest
     needs: [coverage, test, lint]
