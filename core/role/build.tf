@@ -10,7 +10,7 @@ output "deploy_role" {
 
 resource "aws_iam_role_policy_attachment" "builder" {
 
-  user       = aws_iam_role.builder
+  role       = aws_iam_role.builder.arn
   policy_arn = aws_iam_policy.builder.arn
 }
 
