@@ -20,8 +20,8 @@ output "deploy_role" {
   value = aws_iam_role.deploy_core.arn
 }
 resource "aws_iam_role_policy_attachment" "deploy_attach" {
-  role       = aws_iam_role.tfstate.name
-  policy_arn = aws_iam_policy.tfstate.arn
+  role       = aws_iam_role.deploy_core.name
+  policy_arn = aws_iam_policy.deploy.arn
 }
 
 resource "aws_iam_policy" "deploy" {
