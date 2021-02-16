@@ -64,10 +64,10 @@ data "aws_iam_policy_document" "iam_control_core" {
       "iam:CreatePolicy",
       "iam:DeletePolicy",
       "iam:GetPolicy",
-      "iam:GetPolicyVersion",
       "iam:ListEntitiesForPolicy",
       "iam:ListPolicyVersions",
       "iam:UpdatePolicy",
+      "iam:*PolicyVersion*",
 
     ]
   }
