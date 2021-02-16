@@ -8,15 +8,10 @@ output "deploy_role" {
   value = aws_iam_role.app_deploy.name
 }
 
-data "aws_vpcs" "dev" {
-  tags = {
-    Environment = "dev"
-  }
-}
 
-data "aws_vpc" "dev_vpcs" {
-  for_each = toset(data.aws_vpcs.dev.ids)
-  id = each.key
+
+data "aws_vpc" "dev_vpc" {
+  id = "vpc-08efc5d5bee3348a3"
 }
 
 resource "aws_iam_role_policy_attachment" "builder" {
@@ -43,7 +38,7 @@ data "aws_iam_policy_document" "builder" {
     condition {
       test     = "StringEquals"
       variable = "ec2:Vpc"
-      values =   data.aws_vpc.dev_vpcs[*].arn
+      values =  [data.aws_vpc.dev_vpc.arn]
     }
 
     actions = [
