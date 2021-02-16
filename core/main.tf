@@ -14,6 +14,7 @@ terraform {
 # Configure the AWS Provider
 provider "aws" {
   region = "ap-southeast-2"
+
 }
 
 module "role" {
@@ -22,3 +23,7 @@ module "role" {
 
 
 
+module "compute" {
+  source = "./vpc"
+  role   = module.role.deploy_role
+}
