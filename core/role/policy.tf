@@ -168,6 +168,7 @@ data "aws_iam_policy_document" "deploy_vpc" {
       "ec2:*Subnet*",
       "ec2:*Tags*",
       "ec2:*Vpc*",
+      "ec2:*Interface",
 
       "ec2:*Addresses*",
       "ec2:*Address",
