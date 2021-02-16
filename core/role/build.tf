@@ -8,6 +8,13 @@ output "deploy_role" {
   value = aws_iam_role.app_deploy.name
 }
 
+data "aws_vpcs" "dev" {
+  tags = {
+    Environment = "dev"
+  }
+}
+
+
 resource "aws_iam_role_policy_attachment" "builder" {
 
   role       = aws_iam_role.builder.name
@@ -30,17 +37,13 @@ data "aws_iam_policy_document" "builder" {
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:instance/*",
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:volume/*",
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:network-interface/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:key-pair/*",
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:security-group/*",
       "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:subnet/*",
     ]
     condition {
       test     = "StringEquals"
-      variable = "ec2:ResourceTag/Environment"
-
-      values = [
-        "dev"
-      ]
+      variable = "ec2:Vpc"
+      values =   data.aws_vpcs.dev.ids
     }
 
     actions = [
