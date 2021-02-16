@@ -5,12 +5,12 @@ resource "aws_iam_role" "app_deploy" {
   assume_role_policy = data.aws_iam_policy_document.assumption.json
 }
 output "deploy_role" {
-  value = aws_iam_role.app_deploy.arn
+  value = aws_iam_role.app_deploy.name
 }
 
 resource "aws_iam_role_policy_attachment" "builder" {
 
-  role       = aws_iam_role.builder.arn
+  role       = aws_iam_role.builder.name
   policy_arn = aws_iam_policy.builder.arn
 }
 
