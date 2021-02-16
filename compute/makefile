@@ -1,11 +1,11 @@
 test:
-	go test 
+	go test ./app/
 
 build:
-	GOOS=linux GOARCH=arm go build app/ -o bin/generic-oranges
+	GOOS=linux GOARCH=arm go build ./app/ -o bin/generic-oranges
 
 run:
-	go run app/
+	go run ./app/
 
 
 all: hello build
