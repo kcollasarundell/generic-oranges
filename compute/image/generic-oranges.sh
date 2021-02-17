@@ -10,7 +10,7 @@ adduser --system \
  
 mkdir -p $INSTALL_PATH
 mv /tmp/$SERVICE_NAME $INSTALL_PATH/.
-chown -r $SERVICE_NAME $INSTALL_PATH 
+chown -R $SERVICE_NAME $INSTALL_PATH 
 chmod +x $INSTALL_PATH/$SERVICE_NAME
 
 
