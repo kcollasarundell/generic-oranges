@@ -90,6 +90,7 @@ data "aws_iam_policy_document" "builder" {
       "ec2:RegisterImage",
       "ec2:TerminateInstances",
       "ec2:DescribeVpcs",
+      "ec2:StopInstances",
     ]
   }
 }
