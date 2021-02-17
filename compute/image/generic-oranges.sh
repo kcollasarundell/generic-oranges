@@ -4,17 +4,14 @@ set -eux -o pipefail
 INSTALL_PATH=/opt/generic-oranges
 SERVICE_NAME=generic-oranges
 
-
-addgroup --system $SERVICE_NAME
 adduser --system \
-  --group $SERVICE_NAME \
   --home $INSTALL_PATH \
   --disabled-login \
   $SERVICE_NAME
  
 mkdir -p $INSTALL_PATH
 mv /tmp/$SERVICE_NAME $INSTALL_PATH/.
-chown -r $INSTALL_PATH $SERVICE_NAME:$SERVICE_NAME
+chown -r $SERVICE_NAME $INSTALL_PATH 
 chmod +x $INSTALL_PATH/$SERVICE_NAME
 
 
