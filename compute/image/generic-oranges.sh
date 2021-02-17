@@ -5,8 +5,10 @@ INSTALL_PATH=/opt/generic-oranges
 SERVICE_NAME=generic-oranges
 
 
-
-adduser --system --group  --home $INSTALL_PATH \
+addgroup --system $SERVICE_NAME
+adduser --system \
+  --group $SERVICE_NAME \
+  --home $INSTALL_PATH \
   --disabled-login \
   $SERVICE_NAME
  
