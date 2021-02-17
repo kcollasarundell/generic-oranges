@@ -6,10 +6,9 @@ SERVICE_NAME=generic-oranges
 
 
 
-useradd -d $INSTALL_PATH \
- --shell /usr/sbin/nologin \
- --user-group \
- $SERVICE_NAME
+adduser --system --group  --home $INSTALL_PATH \
+  --disabled-login \
+  $SERVICE_NAME
  
 mkdir -p $INSTALL_PATH
 mv /tmp/$SERVICE_NAME $INSTALL_PATH/.
