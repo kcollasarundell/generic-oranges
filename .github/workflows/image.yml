@@ -6,13 +6,12 @@ on:
   push:
     branches:
     - main
-    - image
     paths:
     - "compute/**"
     - ".github/workflows/image.yml"
   pull_request:
     branches:
-      - master
+      - main
     paths:
     - "compute/**"
     - ".github/workflows/image.yml"

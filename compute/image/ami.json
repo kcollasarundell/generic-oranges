@@ -23,7 +23,8 @@
       },
       {
         "type": "shell",
-        "script": "generic-oranges.sh"
+        "script": "generic-oranges.sh",
+        "execute_command": "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
       }
       
     ]
