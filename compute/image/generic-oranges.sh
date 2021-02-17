@@ -6,7 +6,6 @@ SERVICE_NAME=generic-oranges
 
 adduser --system \
   --home $INSTALL_PATH \
-  --disabled-login \
   $SERVICE_NAME
  
 mkdir -p $INSTALL_PATH
