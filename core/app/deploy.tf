@@ -87,17 +87,17 @@ data "aws_iam_policy_document" "deployer" {
     sid    = ""
     effect = "Allow"
     resources = [
-      "arn:aws:route53:::hostedzone/${data.aws_route53_zone.generic_oranges.zone_id}",
+      "arn:aws:route53:::hostedzone/*",
     ]
 
     actions = [
+      "route53:GetHostedZone",
       "route53:ListResourceRecordSets",
+      "route53:ListHostedZones",
       "route53:ChangeResourceRecordSets",
+      "route53:ListResourceRecordSets",
+      "route53:GetHostedZoneCount",
+      "route53:ListHostedZonesByName"
     ]
   }
-}
-
-
-data "aws_route53_zone" "generic_oranges" {
-  name = "generic-oranges.dev."
 }

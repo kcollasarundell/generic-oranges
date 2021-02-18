@@ -148,13 +148,13 @@ data "aws_iam_policy_document" "deploy_vpc" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:subnet/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:vpc/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:natgateway/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:route-table/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:elastic-ip/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:security-group/*",
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:internet-gateway/*",
+      "arn:aws:ec2:*::subnet/*",
+      "arn:aws:ec2:*::vpc/*",
+      "arn:aws:ec2:*::natgateway/*",
+      "arn:aws:ec2:*::route-table/*",
+      "arn:aws:ec2:*::elastic-ip/*",
+      "arn:aws:ec2:*::security-group/*",
+      "arn:aws:ec2:*::internet-gateway/*",
     ]
 
     actions = [
