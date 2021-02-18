@@ -22,8 +22,19 @@ data "aws_subnet_ids" "prod_oranges" {
   vpc_id = aws_vpcs.prod_oranges.ids
 }
 
-data "aws_subnet" "prod_oranges" {
+data "aws_subnet" "prod_oranges_public" {
   for_each = data.aws_subnet_ids.prod_oranges.ids
   id       = each.value
+  tags = {
+    tier = "public"
+  }
+}
+
+data "aws_subnet" "prod_oranges_private" {
+  for_each = data.aws_subnet_ids.prod_oranges.ids
+  id       = each.value
+  tags = {
+    tier = "private"
+  }
 }
 
