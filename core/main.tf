@@ -29,7 +29,7 @@ module "compute" {
 }
 
 module "app" {
-  source    = "./app"
+  source = "./app"
 }
 
 output "name_servers" {

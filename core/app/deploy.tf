@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "assumption" {
 }
 
 data "aws_iam_policy_document" "deployer" {
-    statement {
+  statement {
     sid    = "restrictVPC"
     effect = "Allow"
 
