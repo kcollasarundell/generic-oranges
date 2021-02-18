@@ -3,8 +3,8 @@
     "hash": "{{env `GITHUB_SHA`}}",
     "action": "{{env `GITHUB_ACTION`}}",
     "run_id": "{{env `GITHUB_RUN_ID`}}",
-    "ami_name": "al2-orange-{{isotime \"02-Jan-06-03_04_05\"}}",
-    "build_time": "{{isotime \"02-Jan-06-03_04_05\"}}"
+    "ami_name": "al2-orange-{{isotime \"2006-Jan-02-03_04_05\"}}",
+    "build_time": "{{isotime \"2006-Jan-02-03_04_05\"}}"
   },
   "builders": [
     {
