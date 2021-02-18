@@ -1,31 +1,51 @@
 {
-    "builders": [
-      {
-        "type": "amazon-ebs",
-        "region": "ap-southeast-2",
-        "source_ami": "ami-01bdd32fb6f4e4f51",
-        "instance_type": "t4g.nano",
-        "ssh_username": "ec2-user",
-        "ami_name": "generic-images {{timestamp}}",
-        "subnet_filter": {
-          "filters": {
-            "tag:build": "true"
-          },
-          "random": true
-        }
-      }
-    ],
-    "provisioners": [
-      {
-        "type": "file",
-        "source": "tmp/generic-oranges",
-        "destination": "/tmp/generic-oranges"
+  "variables": {
+    "hash": "{{env `GITHUB_SHA`}}",
+    "action": "{{env `GITHUB_ACTION`}}",
+    "run_id": "{{env `GITHUB_RUN_ID`}}",
+    "ami_name": "al2-orange-{{isotime \"02-Jan-06-03_04_05\"}}",
+    "build_time": "{{isotime \"02-Jan-06-03_04_05\"}}"
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "ap-southeast-2",
+      "source_ami": "ami-01bdd32fb6f4e4f51",
+      "instance_type": "t4g.nano",
+      "ssh_username": "ec2-user",
+      "ami_name": "{{user `ami_name`}}",
+      "tags": {
+        "name": "{{user `ami_name`}}",
+        "hash": "{{user `hash`}}",
+        "action": "{{user `action`}}",
+        "run_id": "{{user `run_id`}}",
+        "build_time": "{{user `build_time`}}"
       },
-      {
-        "type": "shell",
-        "script": "generic-oranges.sh",
-        "execute_command": "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+      "run_tags": {
+        "name": "{{user `ami_name`}}",
+        "hash": "{{user `hash`}}",
+        "action": "{{user `action`}}",
+        "run_id": "{{user `run_id`}}",
+        "build_time": "{{user `build_time`}}"
+      },
+      "subnet_filter": {
+        "filters": {
+          "tag:build": "true"
+        },
+        "random": true
       }
-      
-    ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "tmp/generic-oranges",
+      "destination": "/tmp/generic-oranges"
+    },
+    {
+      "type": "shell",
+      "script": "generic-oranges.sh",
+      "execute_command": "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+    }
+  ]
 }
