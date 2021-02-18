@@ -107,7 +107,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     name: Build Image
-    if: github.ref == 'refs/heads/main'
     defaults:
       run:
         working-directory: compute/image
@@ -137,7 +136,7 @@ jobs:
       PKR_VAR_vpc_id: ${{ secrets.PROD_VPC }}
       PKR_VAR_hash: ${{ github.sha }}
     needs: ami
-    name: Build Image
+    name: Release Image
     if: github.ref == 'refs/heads/main'
     defaults:
       run:
