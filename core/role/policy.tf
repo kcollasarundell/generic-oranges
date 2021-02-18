@@ -184,7 +184,7 @@ data "aws_iam_policy_document" "deploy_vpc" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:route53:::*/*",
+      "*",
     ]
 
     actions = [
