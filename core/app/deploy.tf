@@ -97,7 +97,7 @@ data "aws_iam_policy_document" "deployer" {
     sid    = "DNSRead"
     effect = "Allow"
     resources = [
-      "arn:aws:route53:::hostedzone/*",
+      "*",
     ]
 
     actions = [
