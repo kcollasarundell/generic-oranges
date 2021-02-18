@@ -188,6 +188,8 @@ data "aws_iam_policy_document" "deploy_vpc" {
     ]
 
     actions = [
+      "route53:List*",
+      "route53:Get*",
       "route53:ChangeTagsForResource",
       "route53:CreateHostedZone",
       "route53:DeleteHostedZone",
