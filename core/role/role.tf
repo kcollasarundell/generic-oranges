@@ -12,7 +12,7 @@ resource "aws_iam_policy" "iam_control_core" {
   policy      = data.aws_iam_policy_document.iam_control_core.json
 }
 
-resource "aws_iam_policy" "core_policy" {
+resource "aws_iam_policy" "deploy_vpc" {
   name        = "core-deployment-policy"
   path        = "/kca/"
   description = "Core deployer policy to manage and restrict this deployer"
@@ -32,10 +32,10 @@ variable "users" {
 }
 
 # This should probably be a group by now
-resource "aws_iam_user_policy_attachment" "core_policy" {
+resource "aws_iam_user_policy_attachment" "deploy_vpc" {
   for_each   = toset(var.users)
   user       = each.key
-  policy_arn = aws_iam_policy.core_policy.arn
+  policy_arn = aws_iam_policy.deploy_vpc.arn
 }
 resource "aws_iam_user_policy_attachment" "view_policy" {
   for_each   = toset(var.users)

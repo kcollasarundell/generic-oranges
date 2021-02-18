@@ -144,7 +144,7 @@ data "aws_iam_policy_document" "viewer" {
 
 data "aws_iam_policy_document" "deploy_vpc" {
   statement {
-    sid    = ""
+    sid    = "Compute"
     effect = "Allow"
 
     resources = [
@@ -180,12 +180,11 @@ data "aws_iam_policy_document" "deploy_vpc" {
 
 
   statement {
-    sid    = ""
+    sid    = "DNS"
     effect = "Allow"
 
     resources = [
       "arn:aws:route53:::*/*",
-      "arn:aws:route53:::healthcheck/*",
     ]
 
     actions = [
@@ -203,7 +202,7 @@ data "aws_iam_policy_document" "deploy_vpc" {
   }
 
   statement {
-    sid       = ""
+    sid       = "Network"
     effect    = "Allow"
     resources = ["*"]
 
