@@ -28,6 +28,10 @@ module "compute" {
   depends_on = [module.role]
 }
 
+module "app" {
+  source    = "./app"
+}
+
 output "name_servers" {
   value = module.compute.name_servers
 }

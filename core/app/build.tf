@@ -1,25 +1,25 @@
-resource "aws_iam_role" "app_deploy" {
-  name               = "app_deploy"
-  path               = "/kca/app/"
-  description        = "App Deploy role"
-  assume_role_policy = data.aws_iam_policy_document.assumption.json
-}
-output "deploy_role" {
-  value = aws_iam_role.app_deploy.name
-}
 
 
+
+# It would likely be better to isolate this into another account rather than sharing the same account but a different vpc
+
+data "aws_vpcs" "dev_vpc" {
+  tags = {
+    Environment = "dev"
+  }
+}
 
 data "aws_vpc" "dev_vpc" {
-  id = "vpc-08efc5d5bee3348a3"
+  count = length(data.aws_vpcs.dev_vpc.ids)
+  id    = tolist(data.aws_vpcs.dev_vpc.ids)[count.index]
 }
 
-resource "aws_iam_role_policy_attachment" "builder" {
 
+
+resource "aws_iam_role_policy_attachment" "builder" {
   role       = aws_iam_role.builder.name
   policy_arn = aws_iam_policy.builder.arn
 }
-
 
 resource "aws_iam_policy" "builder" {
   name        = "builder"
@@ -27,18 +27,19 @@ resource "aws_iam_policy" "builder" {
   description = "Policy to allow packer image builds"
   policy      = data.aws_iam_policy_document.builder.json
 }
+
 data "aws_iam_policy_document" "builder" {
   statement {
-    sid    = ""
+    sid    = "restrictVPC"
     effect = "Allow"
 
     resources = [
-      "arn:aws:ec2:*:${data.aws_caller_identity.current.account_id}:subnet/*",
+      "arn:aws:ec2:*::subnet/*",
     ]
     condition {
       test     = "StringEquals"
       variable = "ec2:Vpc"
-      values =  [data.aws_vpc.dev_vpc.arn]
+      values   = data.aws_vpc.dev_vpc[*].arn
     }
 
     actions = [
@@ -47,7 +48,7 @@ data "aws_iam_policy_document" "builder" {
   }
 
   statement {
-    sid    = ""
+    sid    = "runInstance"
     effect = "Allow"
 
     resources = [
