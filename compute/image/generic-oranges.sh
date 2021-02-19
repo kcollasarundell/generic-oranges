@@ -21,7 +21,6 @@ After=network.target
 [Service]
 Type=simple
 User=generic-oranges
-Group=generic-oranges
 
 Restart=on-failure
 RestartSec=1
@@ -32,4 +31,9 @@ ExecStart=$INSTALL_PATH/$SERVICE_NAME
 EOF
 
 systemctl daemon-reload
-systemctl enable generic-oranges
+systemctl enable ${generic-oranges}
+sudo systemctl start ${generic-oranges}
+sudo systemctl status ${generic-oranges}
+sudo systemctl enable amazon-ssm-agent
+sudo systemctl start amazon-ssm-agent
+sudo systemctl status amazon-ssm-agent
