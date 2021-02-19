@@ -19,6 +19,16 @@ resource "aws_lb_target_group" "oranges" {
   vpc_id   = aws_vpcs.prod_vpc.ids
 }
 
+resource "aws_lb_listener" "oranges" {
+  load_balancer_arn = aws_lb.oranges.arn
+  port              = "80"
+  protocol          = "HTTP"
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.oranges.arn
+  }
+}
+
 resource "aws_security_group" "ALB" {
   name        = "ALB"
   description = "Allow http(s) ingress"
