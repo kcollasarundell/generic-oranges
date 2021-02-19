@@ -16,7 +16,7 @@ resource "aws_lb_target_group" "oranges" {
   name     = "oranges-worker"
   port     = 8080
   protocol = "HTTP"
-  vpc_id   = aws_vpcs.prod_vpc.ids
+  vpc_id   = aws_vpcs.prod_oranges.ids
 }
 
 resource "aws_lb_listener" "oranges" {
@@ -32,7 +32,7 @@ resource "aws_lb_listener" "oranges" {
 resource "aws_security_group" "ALB" {
   name        = "ALB"
   description = "Allow http(s) ingress"
-  vpc_id      = aws_vpcs.prod_vpc.ids
+  vpc_id      = aws_vpcs.prod_oranges.ids
 
   ingress {
     description = "https ingress to ALB"
