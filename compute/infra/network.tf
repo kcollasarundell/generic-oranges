@@ -24,7 +24,7 @@ resource "aws_lb_listener" "oranges" {
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
-   certificate_arn = aws_acm_certificate_validation.generic_oranges.certificate_arn
+  certificate_arn   = aws_acm_certificate_validation.generic_oranges.certificate_arn
 
 
   default_action {
@@ -141,7 +141,7 @@ resource "aws_route53_record" "root" {
 
 
 resource "aws_acm_certificate" "generic_oranges" {
-  domain_name       = "generic-oranges.dev"
+  domain_name = "generic-oranges.dev"
   subject_alternative_names = [
     "www.generic-oranges.dev",
     "*.generic-oranges.dev"
