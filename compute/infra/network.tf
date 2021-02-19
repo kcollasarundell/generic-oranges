@@ -73,16 +73,16 @@ resource "aws_security_group" "asg_ingress" {
     Name = "worker-ingress"
   }
 }
-resource "aws_security_group" "asg_ingress" {
-  name        = "asg_ingress"
-  description = "Allow TLS inbound traffic"
+resource "aws_security_group" "asg_egress" {
+  name        = "asg_egress"
+  description = "Allow outbound traffic"
   vpc_id      = aws_vpc.main.id
 
 
 
   egress {
     from_port   = 53
-    protocol    = "-1"
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
