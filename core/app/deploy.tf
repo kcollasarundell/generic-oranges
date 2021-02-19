@@ -159,6 +159,7 @@ data "aws_iam_policy_document" "app_deploy" {
       "iam:PassRole",
       "ec2:Describe*",
       "ec2:List*",
+      "acm:*"
     ]
   }
   statement {
