@@ -38,11 +38,6 @@ data "aws_subnet" "prod_oranges_private" {
   }
 }
 
-data "aws_subnet_ids" "prod_oranges" {
-  vpc_id = data.aws_vpcs.prod_oranges.ids
-}
-
-
 resource "aws_autoscaling_group" "oranges" {
   vpc_zone_identifier       = aws_subnet.prod_oranges_private.*.id
   desired_capacity          = 1
