@@ -128,7 +128,7 @@ data "aws_iam_policy_document" "app_deploy" {
     ]
   }
   statement {
-    sid    = "DNS write"
+    sid    = "DNSwrite"
     effect = "Allow"
     resources = [
       "arn:aws:route53:::hostedzone/${data.aws_route53_zone.generic_oranges.zone_id}",
