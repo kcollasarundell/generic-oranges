@@ -85,7 +85,7 @@ jobs:
           path-to-lcov: ./compute/app/coverage.lcov
   tftest:
     runs-on: ubuntu-latest
-    name: Release Image
+    name: Test and validate TF config
     defaults:
       run:
         working-directory: compute/infra
