@@ -152,7 +152,7 @@ resource "aws_acm_certificate" "generic_oranges" {
 
 resource "aws_route53_record" "generic_oranges" {
   for_each = {
-    for dvo in aws_acm_certificate.generic-oranges.domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.generic_oranges.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
