@@ -47,8 +47,8 @@ resource "aws_iam_role_policy_attachment" "app_deploy" {
 
 
 resource "aws_iam_policy" "app_deploy" {
-  name        = "app_deploy"
-  path        = "/kca/app"
+  name        = "deploy"
+  path        = "/kca/app/"
   description = "Permissions needed by app deployment CD process"
   policy      = data.aws_iam_policy_document.app_deploy.json
 }
