@@ -39,7 +39,21 @@ data "aws_iam_policy_document" "assumption" {
   }
 }
 
-data "aws_iam_policy_document" "deployer" {
+
+resource "aws_iam_role_policy_attachment" "app_deploy" {
+  role       = aws_iam_role.app_deploy.name
+  policy_arn = aws_iam_policy.app_deploy.arn
+}
+
+
+resource "aws_iam_policy" "app_deploy" {
+  name        = "app_deploy"
+  path        = "/kca/app"
+  description = "Permissions needed by app deployment CD process"
+  policy      = data.aws_iam_policy_document.app_deploy.json
+}
+
+data "aws_iam_policy_document" "app_deploy" {
   statement {
     sid    = "restrictVPC"
     effect = "Allow"
@@ -59,7 +73,7 @@ data "aws_iam_policy_document" "deployer" {
   }
 
   statement {
-    sid    = ""
+    sid    = "tfstate"
     effect = "Allow"
 
     resources = [
