@@ -83,9 +83,41 @@ jobs:
       with:
           github-token: ${{ secrets.github_token }}
           path-to-lcov: ./compute/app/coverage.lcov
+  tftest:
+    runs-on: ubuntu-latest
+
+    needs: ami
+    name: Release Image
+    defaults:
+      run:
+        working-directory: compute/infra
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/download-artifact@v2
+      with:
+        name: arm-build
+        path: compute/image/tmp
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-southeast-2
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME_DEPLOY }}
+        role-external-id: ${{ secrets.AWS_ROLE_EXTERNAL_ID }}
+        role-duration-seconds: 1200
+        role-session-name: deployer
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.14.6
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -check
+      continue-on-error: false
   build:
     runs-on: ubuntu-latest
-    needs: [coverage, test, lint]
+    needs: [coverage, test, lint, tftest]
     name: Build App
     defaults:
       run:
