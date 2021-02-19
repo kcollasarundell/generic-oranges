@@ -60,6 +60,8 @@ data "aws_iam_policy_document" "app_deploy" {
 
     resources = [
       "arn:aws:ec2:*::subnet/*",
+      "arn:aws:ec2:*:*:security-group/*",
+      "arn:aws:elasticloadbalancing:*:*:loadbalancer/app/*"
     ]
     condition {
       test     = "StringEquals"
@@ -68,10 +70,24 @@ data "aws_iam_policy_document" "app_deploy" {
     }
 
     actions = [
+      "ec2:AuthorizeSecurityGroupEgress",
+      "ec2:AuthorizeSecurityGroupIngress",
+      "ec2:DeleteSecurityGroup",
+      "ec2:RevokeSecurityGroupEgress",
+      "ec2:RevokeSecurityGroupIngress",
       "ec2:RunInstances",
     ]
   }
+  statement {
+    sid    = ""
+    effect = "Allow"
 
+    resources = ["*"]
+    actions = [
+      # Who am i?
+      "sts:GetCallerIdentity",
+    ]
+  }
   statement {
     sid    = "tfstate"
     effect = "Allow"
@@ -111,6 +127,7 @@ data "aws_iam_policy_document" "app_deploy" {
     ]
 
     actions = [
+      "elasticloadbalancing:*",
       "route53:GetHostedZone",
       "route53:GetHostedZoneCount",
       "route53:ListHostedZones",
@@ -125,6 +142,9 @@ data "aws_iam_policy_document" "app_deploy" {
       "cloudwatch:PutMetricAlarm",
       "cloudwatch:DeleteAlarms",
       "cloudwatch:DescribeAlarms",
+      "elasticloadbalancing:Describe*",
+      "ec2:Describe*",
+      "ec2:List*",
     ]
   }
   statement {
