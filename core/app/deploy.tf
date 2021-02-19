@@ -57,6 +57,36 @@ data "aws_iam_policy_document" "deployer" {
       "ec2:RunInstances",
     ]
   }
+
+  statement {
+    sid    = ""
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:s3:::*",
+    ]
+
+    actions = [
+      # Policy to allow tf state storage on s3 backend
+      "s3:ListBucket",
+    ]
+  }
+
+  statement {
+    sid    = ""
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:s3:::*/*/",
+    ]
+
+    actions = [
+      # Policy for terraform state storage on s3 backend
+      "s3:GetObject",
+      "s3:PutObject",
+    ]
+  }
+
   statement {
     sid    = ""
     effect = "Allow"
