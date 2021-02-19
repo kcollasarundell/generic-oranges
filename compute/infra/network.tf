@@ -112,7 +112,7 @@ data "aws_route53_zone" "oranges" {
 }
 
 resource "aws_route53_record" "all" {
-  zone_id = aws_route53_zone.oranges.zone_id
+  zone_id = data.aws_route53_zone.oranges.zone_id
   name    = "*.generic-oranges.dev."
   type    = "A"
   ttl     = "300"
@@ -125,7 +125,7 @@ resource "aws_route53_record" "all" {
 }
 
 resource "aws_route53_record" "root" {
-  zone_id = aws_route53_zone.oranges.zone_id
+  zone_id = data.aws_route53_zone.oranges.zone_id
   name    = "generic-oranges.dev."
   type    = "A"
   ttl     = "300"
