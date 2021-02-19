@@ -99,7 +99,7 @@ resource "aws_security_group" "asg_egress" {
 }
 
 data "aws_route53_zone" "oranges" {
-  name  = "generic-oranges.dev."
+  name = "generic-oranges.dev."
 }
 
 resource "aws_route53_record" "all" {
