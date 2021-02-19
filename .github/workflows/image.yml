@@ -137,7 +137,6 @@ jobs:
       PKR_VAR_hash: ${{ github.sha }}
     needs: ami
     name: Release Image
-    if: github.ref == 'refs/heads/main'
     defaults:
       run:
         working-directory: compute/infra
