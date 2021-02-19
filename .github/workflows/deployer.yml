@@ -26,10 +26,6 @@ jobs:
         working-directory: compute/infra
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/download-artifact@v2
-      with:
-        name: arm-build
-        path: compute/image/tmp
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
