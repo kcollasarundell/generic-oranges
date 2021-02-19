@@ -57,7 +57,7 @@ resource "aws_security_group" "ALB" {
 resource "aws_security_group" "asg_ingress" {
   name        = "asg_ingress"
   description = "Allow TLS inbound traffic"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = data.aws_vpcs.prod_oranges.ids
 
   ingress {
     description = "inbound http from LB"
