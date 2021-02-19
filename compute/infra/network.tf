@@ -65,8 +65,8 @@ resource "aws_security_group" "asg_ingress" {
 
   ingress {
     description = "inbound http from LB"
-    from_port   = 80
-    to_port     = 80
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     security_groups = [
       aws_security_group.ALB.id,
