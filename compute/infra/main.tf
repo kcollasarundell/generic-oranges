@@ -10,6 +10,11 @@ terraform {
     region = "ap-southeast-2"
   }
 }
+provider "aws" {
+  region = "ap-southeast-2"
+}
+
+
 
 # In real use this should be feeding into a count and a loop so that we can handle multiple matching VPCs
 data "aws_vpcs" "prod_oranges" {
@@ -61,7 +66,7 @@ resource "aws_autoscaling_group" "oranges" {
     preferences {
       min_healthy_percentage = 50
     }
-    triggers = ["tag", "launch_template"]
+    triggers = ["tag"]
   }
 }
 
