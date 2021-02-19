@@ -19,7 +19,7 @@ data "aws_vpcs" "prod_oranges" {
 }
 
 data "aws_subnet_ids" "prod_oranges" {
-  vpc_id = aws_vpcs.prod_oranges.ids
+  vpc_id = data.aws_vpcs.prod_oranges.ids
 }
 
 data "aws_subnet" "prod_oranges_public" {
