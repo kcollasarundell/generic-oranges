@@ -83,14 +83,19 @@ resource "aws_security_group" "asg_egress" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+    egress {
+    from_port   = 53
+    protocol    = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   egress {
     from_port   = 80
-    protocol    = "-1"
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     from_port   = 443
-    protocol    = "-1"
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
