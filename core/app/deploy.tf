@@ -63,12 +63,13 @@ data "aws_iam_policy_document" "deployer" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:s3:::*",
+      "*",
     ]
 
     actions = [
       # Policy to allow tf state storage on s3 backend
       "s3:ListBucket",
+      "s3:GetBucket",
     ]
   }
 
@@ -77,7 +78,7 @@ data "aws_iam_policy_document" "deployer" {
     effect = "Allow"
 
     resources = [
-      "arn:aws:s3:::*/*/",
+      "arn:aws:s3:::*/*",
     ]
 
     actions = [
