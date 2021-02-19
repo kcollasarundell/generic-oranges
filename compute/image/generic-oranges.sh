@@ -31,9 +31,9 @@ ExecStart=$INSTALL_PATH/$SERVICE_NAME
 EOF
 
 systemctl daemon-reload
-systemctl enable ${generic-oranges}
-sudo systemctl start ${generic-oranges}
-sudo systemctl status ${generic-oranges}
+systemctl enable ${SERVICE_NAME}
+sudo systemctl start ${SERVICE_NAME}
+sudo systemctl status ${SERVICE_NAME}
 sudo systemctl enable amazon-ssm-agent
 sudo systemctl start amazon-ssm-agent
 sudo systemctl status amazon-ssm-agent
