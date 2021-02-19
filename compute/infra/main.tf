@@ -29,28 +29,28 @@ data "aws_vpc" "prod_oranges" {
 
 data "aws_subnet_ids" "prod_oranges_public" {
   vpc_id = data.aws_vpc.prod_oranges.id
-    filter {
+  filter {
     name   = "tag:tier"
     values = ["public"]
   }
 }
 
 data "aws_subnet" "prod_oranges_public" {
-  count =  length(data.aws_subnet_ids.prod_oranges_public.ids)
-  id    =  tolist(data.aws_subnet_ids.prod_oranges_public.ids)[count.index]
+  count = length(data.aws_subnet_ids.prod_oranges_public.ids)
+  id    = tolist(data.aws_subnet_ids.prod_oranges_public.ids)[count.index]
 }
 
 
 data "aws_subnet_ids" "prod_oranges_private" {
   vpc_id = data.aws_vpc.prod_oranges.id
-    filter {
+  filter {
     name   = "tag:tier"
     values = ["private"]
   }
 }
 data "aws_subnet" "prod_oranges_private" {
-  count =  length(data.aws_subnet_ids.prod_oranges_private.ids)
-  id    =  tolist(data.aws_subnet_ids.prod_oranges_private.ids)[count.index]
+  count = length(data.aws_subnet_ids.prod_oranges_private.ids)
+  id    = tolist(data.aws_subnet_ids.prod_oranges_private.ids)[count.index]
 }
 
 resource "aws_autoscaling_group" "oranges" {
