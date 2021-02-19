@@ -83,7 +83,7 @@ resource "aws_security_group" "asg_egress" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-    egress {
+  egress {
     from_port   = 53
     protocol    = "udp"
     cidr_blocks = ["0.0.0.0/0"]
