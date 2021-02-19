@@ -14,8 +14,7 @@ data "aws_vpcs" "prod_vpc" {
 }
 
 data "aws_vpc" "prod_vpc" {
-  count = length(data.aws_vpcs.prod_vpc.ids)
-  id    = tolist(data.aws_vpcs.prod_vpc.ids)[count.index]
+  id = tolist(data.aws_vpcs.prod_vpc.ids)[0]
 }
 
 output "deploy_role" {
@@ -53,29 +52,46 @@ resource "aws_iam_policy" "app_deploy" {
   policy      = data.aws_iam_policy_document.app_deploy.json
 }
 
+
+
+data "aws_subnet_ids" "prod_oranges_private" {
+  vpc_id = data.aws_vpc.prod_vpc.id
+  filter {
+    name   = "tag:tier"
+    values = ["private"]
+  }
+}
+
+data "aws_subnet" "prod_oranges_private" {
+  count = length(data.aws_subnet_ids.prod_oranges_private.ids)
+  id    = tolist(data.aws_subnet_ids.prod_oranges_private.ids)[count.index]
+}
+
 data "aws_iam_policy_document" "app_deploy" {
   statement {
     sid    = "restrictVPC"
     effect = "Allow"
 
-    resources = [
-      "arn:aws:ec2:*::subnet/*",
-      "arn:aws:ec2:*:*:security-group/*",
-      "arn:aws:elasticloadbalancing:*:*:loadbalancer/app/*"
+    resources = data.aws_subnet.prod_oranges_private.*.arn
+    actions = [
+      "ec2:RunInstances",
     ]
-    condition {
-      test     = "StringEquals"
-      variable = "ec2:Vpc"
-      values   = data.aws_vpc.prod_vpc[*].arn
-    }
+  }
+
+  statement {
+    sid    = "allowsecurityGroup"
+    effect = "Allow"
+
+    resources = ["*"]
 
     actions = [
+      "ec2:*SecurityGroup*",
       "ec2:AuthorizeSecurityGroupEgress",
       "ec2:AuthorizeSecurityGroupIngress",
       "ec2:DeleteSecurityGroup",
       "ec2:RevokeSecurityGroupEgress",
       "ec2:RevokeSecurityGroupIngress",
-      "ec2:RunInstances",
+      "ec2:*tags*",
     ]
   }
   statement {
@@ -127,22 +143,20 @@ data "aws_iam_policy_document" "app_deploy" {
     ]
 
     actions = [
+      "iam:CreateServiceLinkedRole",
+      "ec2:RunInstances",
+      "ec2:*LaunchTemplate*",
       "elasticloadbalancing:*",
       "route53:GetHostedZone",
       "route53:GetHostedZoneCount",
       "route53:ListHostedZones",
-      "autoscaling:CreateAutoScalingGroup",
-      "autoscaling:DeleteAutoScalingGroups",
-      "autoscaling:UpdateAutoScalingGroup",
-      "autoscaling:DescribeAutoScalingGroups",
-      "autoscaling:PutScalingPolicy",
-      "autoscaling:DescribePolicies",
-      "autoscaling:DeletePolicy",
+      "autoscaling:*",
       "autoscaling-plans:*",
       "cloudwatch:PutMetricAlarm",
       "cloudwatch:DeleteAlarms",
       "cloudwatch:DescribeAlarms",
       "elasticloadbalancing:Describe*",
+      "iam:PassRole",
       "ec2:Describe*",
       "ec2:List*",
     ]
