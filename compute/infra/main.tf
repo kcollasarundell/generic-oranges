@@ -60,6 +60,7 @@ resource "aws_autoscaling_group" "oranges" {
   min_size                  = 1
   health_check_type         = "ELB"
   health_check_grace_period = 60
+  target_group_arns = aws_lb_target_group.oranges.arn
   launch_template {
     id      = aws_launch_template.oranges.id
     version = aws_launch_template.oranges.latest_version

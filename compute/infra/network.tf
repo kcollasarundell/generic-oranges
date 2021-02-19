@@ -21,8 +21,12 @@ resource "aws_lb_target_group" "oranges" {
 
 resource "aws_lb_listener" "oranges" {
   load_balancer_arn = aws_lb.oranges.arn
-  port              = "80"
-  protocol          = "HTTP"
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+   certificate_arn = aws_acm_certificate_validation.generic_oranges.certificate_arn
+
+
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.oranges.arn
@@ -133,4 +137,37 @@ resource "aws_route53_record" "root" {
     zone_id                = aws_lb.oranges.zone_id
     evaluate_target_health = false
   }
+}
+
+
+resource "aws_acm_certificate" "generic_oranges" {
+  domain_name       = "generic-oranges.dev"
+  subject_alternative_names = [
+    "www.generic-oranges.dev",
+    "*.generic-oranges.dev"
+  ]
+  validation_method = "DNS"
+}
+
+
+resource "aws_route53_record" "generic_oranges" {
+  for_each = {
+    for dvo in aws_acm_certificate.generic-oranges.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    }
+  }
+
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = data.aws_route53_zone.oranges.zone_id
+}
+
+resource "aws_acm_certificate_validation" "generic_oranges" {
+  certificate_arn         = aws_acm_certificate.generic_oranges.arn
+  validation_record_fqdns = [for record in aws_route53_record.generic_oranges : record.fqdn]
 }
