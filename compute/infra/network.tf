@@ -16,7 +16,7 @@ resource "aws_lb_target_group" "oranges" {
   name     = "oranges-worker"
   port     = 8080
   protocol = "HTTP"
-  vpc_id   = data.aws_vpcs.prod_oranges.ids
+  vpc_id   = data.aws_vpc.prod_oranges.id
 }
 
 resource "aws_lb_listener" "oranges" {
@@ -32,7 +32,7 @@ resource "aws_lb_listener" "oranges" {
 resource "aws_security_group" "ALB" {
   name        = "ALB"
   description = "Allow http(s) ingress"
-  vpc_id      = data.aws_vpcs.prod_oranges.ids
+  vpc_id      = data.aws_vpc.prod_oranges.id
 
   ingress {
     description = "https ingress to ALB"
@@ -57,7 +57,7 @@ resource "aws_security_group" "ALB" {
 resource "aws_security_group" "asg_ingress" {
   name        = "asg_ingress"
   description = "Allow TLS inbound traffic"
-  vpc_id      = data.aws_vpcs.prod_oranges.ids
+  vpc_id      = data.aws_vpc.prod_oranges.id
 
   ingress {
     description = "inbound http from LB"
@@ -65,7 +65,7 @@ resource "aws_security_group" "asg_ingress" {
     to_port     = 80
     protocol    = "tcp"
     security_groups = [
-      aws_security_group.ALB,
+      aws_security_group.ALB.id,
     ]
   }
 
@@ -76,7 +76,7 @@ resource "aws_security_group" "asg_ingress" {
 resource "aws_security_group" "asg_egress" {
   name        = "asg_egress"
   description = "Allow outbound traffic"
-  vpc_id      = data.aws_vpcs.prod_oranges.ids
+  vpc_id      = data.aws_vpc.prod_oranges.id
 
   egress {
     from_port   = 53

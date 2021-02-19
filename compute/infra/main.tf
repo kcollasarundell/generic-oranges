@@ -16,31 +16,41 @@ provider "aws" {
 
 
 
-# In real use this should be feeding into a count and a loop so that we can handle multiple matching VPCs
+# In real use this should be feeding into a count and a loop so that we can handle multiple matching VPCs or a set of modules
 data "aws_vpcs" "prod_oranges" {
   tags = {
-    environment = "production"
+    Environment = "prod"
   }
 }
 
-data "aws_subnet_ids" "prod_oranges" {
-  vpc_id = data.aws_vpcs.prod_oranges.ids
+data "aws_vpc" "prod_oranges" {
+  id = tolist(data.aws_vpcs.prod_oranges.ids)[0]
+}
+
+data "aws_subnet_ids" "prod_oranges_public" {
+  vpc_id = data.aws_vpc.prod_oranges.id
+    filter {
+    name   = "tag:tier"
+    values = ["public"]
+  }
 }
 
 data "aws_subnet" "prod_oranges_public" {
-  for_each = data.aws_subnet_ids.prod_oranges.ids
-  id       = each.value
-  tags = {
-    tier = "public"
-  }
+  count =  length(data.aws_subnet_ids.prod_oranges_public.ids)
+  id    =  tolist(data.aws_subnet_ids.prod_oranges_public.ids)[count.index]
 }
 
-data "aws_subnet" "prod_oranges_private" {
-  for_each = data.aws_subnet_ids.prod_oranges.ids
-  id       = each.value
-  tags = {
-    tier = "private"
+
+data "aws_subnet_ids" "prod_oranges_private" {
+  vpc_id = data.aws_vpc.prod_oranges.id
+    filter {
+    name   = "tag:tier"
+    values = ["private"]
   }
+}
+data "aws_subnet" "prod_oranges_private" {
+  count =  length(data.aws_subnet_ids.prod_oranges_private.ids)
+  id    =  tolist(data.aws_subnet_ids.prod_oranges_private.ids)[count.index]
 }
 
 resource "aws_autoscaling_group" "oranges" {
@@ -84,13 +94,14 @@ resource "aws_launch_template" "oranges" {
 variable "hash" {
   type = string
 }
+data "aws_caller_identity" "current" {}
 
 data "aws_ami" "oranges" {
   most_recent = true
-  owners      = ["amazon"]
+  owners      = [data.aws_caller_identity.current.account_id]
 
   filter {
-    name   = "hash"
+    name   = "tag:hash"
     values = [var.hash]
   }
 
