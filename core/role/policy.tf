@@ -39,6 +39,7 @@ data "aws_iam_policy_document" "iam_control_core" {
 
     actions = [
       "iam:*Tag*",
+      "iam:*Instance*",
 
       # User perms
       "iam:AttachUserPolicy",
