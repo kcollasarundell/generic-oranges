@@ -191,3 +191,12 @@ data "aws_iam_policy_document" "app_deploy" {
 data "aws_route53_zone" "generic_oranges" {
   name = "generic-oranges.dev."
 }
+
+# this module seems to handle a large portion of the iam requirements around SSM and cloudwatch while allowing customiseation. This would allow different services to be configured as required.
+
+module "ec2_default_instance_profile" {
+  source  = "StratusGrid/ec2-instance-profile-builder/aws"
+  version = "2.0.0"
+
+  instance_profile_name = "generic-oranges-default-ec2-instance-profile"
+}

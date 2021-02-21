@@ -118,14 +118,6 @@ data "aws_ami" "oranges" {
   }
 }
 
-# Using a module here due to time constraints and the collection of various resources required. It does seem to be a nice minimal collection of actions and resource maps that can apply as a starting place or solution
-
-module "ec2_default_instance_profile" {
-  source  = "StratusGrid/ec2-instance-profile-builder/aws"
-  version = "2.0.0"
-
-  instance_profile_name = "generic-oranges-default-ec2-instance-profile"
-}
 
 # references:
 # - https://medium.com/@endofcake/using-terraform-for-zero-downtime-updates-of-an-auto-scaling-group-in-aws-60faca582664
