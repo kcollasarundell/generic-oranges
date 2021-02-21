@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "iam_control_core" {
     resources = ["*"]
 
     actions = [
-
+      "iam:*Tag*",
 
       # User perms
       "iam:AttachUserPolicy",
