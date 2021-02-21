@@ -54,6 +54,9 @@ data "aws_subnet" "prod_oranges_private" {
 }
 
 resource "aws_autoscaling_group" "oranges" {
+  depends_on = [
+    module.ec2_default_instance_profile,
+  ]
   vpc_zone_identifier       = data.aws_subnet.prod_oranges_private.*.id
   desired_capacity          = 1
   max_size                  = 2
@@ -84,6 +87,9 @@ resource "aws_autoscaling_group" "oranges" {
 resource "aws_launch_template" "oranges" {
   image_id      = data.aws_ami.oranges.id
   instance_type = "t4g.nano"
+  iam_instance_profile {
+    name= "generic-oranges-default-ec2-instance-profile"
+  }
   vpc_security_group_ids = [
     aws_security_group.asg_ingress.id,
     aws_security_group.asg_egress.id,
@@ -111,5 +117,15 @@ data "aws_ami" "oranges" {
     values = ["al2-orange-*"]
   }
 }
+
+# Using a module here due to time constraints and the collection of various resources required. It does seem to be a nice minimal collection of actions and resource maps that can apply as a starting place or solution
+
+module "ec2_default_instance_profile" {
+  source  = "StratusGrid/ec2-instance-profile-builder/aws"
+  version = "2.0.0"
+
+  instance_profile_name = "generic-oranges-default-ec2-instance-profile"
+}
+
 # references:
 # - https://medium.com/@endofcake/using-terraform-for-zero-downtime-updates-of-an-auto-scaling-group-in-aws-60faca582664
