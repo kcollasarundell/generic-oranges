@@ -24,7 +24,8 @@ User=generic-oranges
 
 Restart=on-failure
 RestartSec=1
-startLimitIntervalSec=60
+StartLimitInterval=2
+StartLimitBurst=50
 
 WorkingDirectory=$INSTALL_PATH
 ExecStart=$INSTALL_PATH/$SERVICE_NAME
