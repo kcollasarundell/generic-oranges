@@ -58,6 +58,7 @@ data "aws_iam_policy_document" "iam_control_core" {
       "iam:ListRolePolicies",
       "iam:ListRoles",
       "iam:PutRolePolicy",
+      "iam:PassRole",
       "iam:UpdateRole",
       "iam:UpdateAssumeRolePolicy",
 
