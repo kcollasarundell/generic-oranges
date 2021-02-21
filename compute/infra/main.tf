@@ -54,9 +54,6 @@ data "aws_subnet" "prod_oranges_private" {
 }
 
 resource "aws_autoscaling_group" "oranges" {
-  depends_on = [
-    module.ec2_default_instance_profile,
-  ]
   vpc_zone_identifier       = data.aws_subnet.prod_oranges_private.*.id
   desired_capacity          = 1
   max_size                  = 2
