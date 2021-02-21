@@ -88,7 +88,7 @@ resource "aws_launch_template" "oranges" {
   image_id      = data.aws_ami.oranges.id
   instance_type = "t4g.nano"
   iam_instance_profile {
-    name= "generic-oranges-default-ec2-instance-profile"
+    name = "generic-oranges-default-ec2-instance-profile"
   }
   vpc_security_group_ids = [
     aws_security_group.asg_ingress.id,
