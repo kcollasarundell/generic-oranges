@@ -16,15 +16,22 @@ module "prod" {
   cidr = "10.0.0.0/16"
 
   azs            = ["ap-southeast-2a", ]
-  public_subnets = ["10.0.101.0/24", ]
+  public_subnets = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24" ]
   public_subnet_tags = {
     tier = "public"
   }
   private_subnet_tags = {
     tier = "private"
   }
-  private_subnets = ["10.0.1.0/24", ]
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 
+  enable_ipv6                     = true
+  assign_ipv6_address_on_creation = true
+
+  private_subnet_assign_ipv6_address_on_creation = false
+
+  public_subnet_ipv6_prefixes   = [0,1,2]
+  private_subnet_ipv6_prefixes  = [3,4,5]
   enable_nat_gateway = true
   single_nat_gateway = true
 
@@ -51,16 +58,9 @@ module "dev" {
     tier = "private"
   }
 
-  enable_ipv6                     = true
-  assign_ipv6_address_on_creation = true
 
-  private_subnet_assign_ipv6_address_on_creation = false
-
-
-  public_subnet_ipv6_prefixes  = [0]
-  private_subnet_ipv6_prefixes = [3]
-  enable_nat_gateway           = true
-  single_nat_gateway           = true
+  enable_nat_gateway = true
+  single_nat_gateway = true
 
   tags = {
     Terraform   = "true"
