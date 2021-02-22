@@ -126,7 +126,7 @@ resource "aws_route53_record" "all" {
     evaluate_target_health = false
   }
 }
-resource "aws_route53_record" "all" {
+resource "aws_route53_record" "all6" {
   zone_id = data.aws_route53_zone.oranges.zone_id
   name    = "*.generic-oranges.dev."
   type    = "AAAA"
@@ -151,7 +151,7 @@ resource "aws_route53_record" "root" {
 }
 
 
-resource "aws_route53_record" "root" {
+resource "aws_route53_record" "root6" {
   zone_id = data.aws_route53_zone.oranges.zone_id
   name    = "generic-oranges.dev."
   type    = "AAAA"
