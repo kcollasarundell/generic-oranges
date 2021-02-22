@@ -126,6 +126,17 @@ resource "aws_route53_record" "all" {
     evaluate_target_health = false
   }
 }
+resource "aws_route53_record" "all" {
+  zone_id = data.aws_route53_zone.oranges.zone_id
+  name    = "*.generic-oranges.dev."
+  type    = "AAAA"
+
+  alias {
+    name                   = aws_lb.oranges.dns_name
+    zone_id                = aws_lb.oranges.zone_id
+    evaluate_target_health = false
+  }
+}
 
 resource "aws_route53_record" "root" {
   zone_id = data.aws_route53_zone.oranges.zone_id
@@ -139,6 +150,18 @@ resource "aws_route53_record" "root" {
   }
 }
 
+
+resource "aws_route53_record" "root" {
+  zone_id = data.aws_route53_zone.oranges.zone_id
+  name    = "generic-oranges.dev."
+  type    = "AAAA"
+
+  alias {
+    name                   = aws_lb.oranges.dns_name
+    zone_id                = aws_lb.oranges.zone_id
+    evaluate_target_health = false
+  }
+}
 
 resource "aws_acm_certificate" "generic_oranges" {
   domain_name = "generic-oranges.dev"
