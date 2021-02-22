@@ -32,8 +32,8 @@ module "prod" {
 
   public_subnet_ipv6_prefixes   = [0,1,2]
   private_subnet_ipv6_prefixes  = [3,4,5]
-  enable_nat_gateway = true
-  single_nat_gateway = true
+  enable_nat_gateway = false
+  single_nat_gateway = false
 
   tags = {
     Terraform   = "true"
