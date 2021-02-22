@@ -17,6 +17,7 @@ cat <<EOF > /etc/systemd/system/$SERVICE_NAME.service
  [Unit]
 Description=Generic-oranges
 After=network.target
+WantedBy=multi-user.target
  
 [Service]
 Type=simple
