@@ -21,7 +21,6 @@ After=network.target
 [Service]
 Type=simple
 User=generic-oranges
-WantedBy=multi-user.target
 
 Restart=on-failure
 RestartSec=1
@@ -30,6 +29,9 @@ StartLimitBurst=50
 
 WorkingDirectory=$INSTALL_PATH
 ExecStart=$INSTALL_PATH/$SERVICE_NAME
+
+[Install]
+WantedBy=multi-user.target
 EOF
 
 sudo systemctl daemon-reload
