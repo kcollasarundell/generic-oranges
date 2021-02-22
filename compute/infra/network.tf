@@ -5,7 +5,7 @@ resource "aws_lb" "oranges" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.ALB.id]
   subnets            = data.aws_subnet.prod_oranges_public.*.id
-
+  ip_address_type = "dualstack"
   enable_deletion_protection = false
   tags = {
     Environment = "production"
