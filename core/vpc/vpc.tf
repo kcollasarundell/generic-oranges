@@ -30,8 +30,8 @@ module "prod" {
 
   private_subnet_assign_ipv6_address_on_creation = false
 
-  public_subnet_ipv6_prefixes   = [0,1,2]
-  private_subnet_ipv6_prefixes  = [3,4,5]
+  public_subnet_ipv6_prefixes   = [10,11,12]
+  private_subnet_ipv6_prefixes  = [13,14,15]
   enable_nat_gateway = false
   single_nat_gateway = false
 
